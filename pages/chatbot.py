@@ -158,4 +158,4 @@ def chat_page(chat_id: str = None):
                     .props('unelevated round color=indigo-600').classes('mr-1')
 
 if __name__ in {"__main__", "__mp_main__"}:
-    ui.run()
+    ui.run(storage_secret='super_secret_key_123')

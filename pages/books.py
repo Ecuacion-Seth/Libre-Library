@@ -192,4 +192,5 @@ def books_page():
             # --- THE GRID ---
             books_grid()
 
-ui.run()
+if __name__ in {'__main__', '__mp_main__'}:
+    ui.run(storage_secret='super_secret_key_123')
