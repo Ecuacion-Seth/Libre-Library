@@ -1,0 +1,48 @@
+{
+  "id": 1342,
+  "title": "Pride and Prejudice",
+  "authors": [
+    {
+      "name": "Austen, Jane",
+      "birth_year": 1775,
+      "death_year": 1817
+    }
+  ],
+  "summaries": [
+    "\"Pride and Prejudice\" by Jane Austen is a classic novel written in the early 19th century. The story delves into themes of love, social class, and individual agency, largely revolving around the life of Elizabeth Bennet, one of five sisters from a modest but genteel family navigating the complex social landscape of Regency England.  The opening of the novel introduces the seemingly universal truth that a single man of wealth is a target for matchmaking mothers in the neighborhood. Mrs. Bennet is eager to marry off her daughters and is excited to hear about the arrival of Mr. Bingley, a wealthy young man who has taken up residence at Netherfield Park. Mr. Bennet's teasing yet indifferent nature contrasts sharply with Mrs. Bennet's anxious and businesslike demeanor as she plans to visit Mr. Bingley to create an opportunity for her daughters. Their witty exchanges set the tone for the story's exploration of family dynamics and social expectations, while also hinting at deeper character developments and the challenges Elizabeth will face regarding love and prejudice in her interactions with Mr. Darcy and the Bingley family. (This is an automatically generated summary.)"
+  ],
+  "editors": [],
+  "translators": [],
+  "subjects": [
+    "Courtship -- Fiction",
+    "Domestic fiction",
+    "England -- Fiction",
+    "Love stories",
+    "Sisters -- Fiction",
+    "Social classes -- Fiction",
+    "Young women -- Fiction"
+  ],
+  "bookshelves": [
+    "Best Books Ever Listings",
+    "Category: British Literature",
+    "Category: Classics of Literature",
+    "Category: Novels",
+    "Category: Romance",
+    "Harvard Classics"
+  ],
+  "languages": [
+    "en"
+  ],
+  "copyright": false,
+  "media_type": "Text",
+  "formats": {
+    "text/html": "https://www.gutenberg.org/ebooks/1342.html.images",
+    "application/epub+zip": "https://www.gutenberg.org/ebooks/1342.epub3.images",
+    "application/x-mobipocket-ebook": "https://www.gutenberg.org/ebooks/1342.kf8.images",
+    "text/plain; charset=us-ascii": "https://www.gutenberg.org/ebooks/1342.txt.utf-8",
+    "application/rdf+xml": "https://www.gutenberg.org/ebooks/1342.rdf",
+    "image/jpeg": "https://www.gutenberg.org/cache/epub/1342/pg1342.cover.medium.jpg",
+    "application/octet-stream": "https://www.gutenberg.org/cache/epub/1342/pg1342-h.zip"
+  },
+  "download_count": 85862
+}

@@ -1,0 +1,17 @@
+{
+  "id": "b9c5d143-692d-4da8-b7ba-314b22adba01",
+  "title": "wow what is your name?",
+  "timestamp": "2025-12-15 06:07:25",
+  "messages": [
+    {
+      "text": "wow what is your name?",
+      "is_user": true,
+      "timestamp": "06:07"
+    },
+    {
+      "text": "I am the Library AI. This conversation is being saved!",
+      "is_user": false,
+      "timestamp": "06:07"
+    }
+  ]
+}

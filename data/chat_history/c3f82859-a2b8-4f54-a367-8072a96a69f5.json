@@ -1,0 +1,27 @@
+{
+  "id": "c3f82859-a2b8-4f54-a367-8072a96a69f5",
+  "title": "wow",
+  "timestamp": "2025-12-15 06:07:14",
+  "messages": [
+    {
+      "text": "wow",
+      "is_user": true,
+      "timestamp": "06:02"
+    },
+    {
+      "text": "I am a new Multi-Chat AI! I recall this specific conversation.",
+      "is_user": false,
+      "timestamp": "06:02"
+    },
+    {
+      "text": "amazing",
+      "is_user": true,
+      "timestamp": "06:07"
+    },
+    {
+      "text": "I am the Library AI. This conversation is being saved!",
+      "is_user": false,
+      "timestamp": "06:07"
+    }
+  ]
+}
