@@ -1,0 +1,17 @@
+{
+  "id": "69fa8782-c128-4e61-8708-7a2947df62a2",
+  "title": "wassup",
+  "timestamp": "2025-12-15 15:23:27",
+  "messages": [
+    {
+      "text": "wassup",
+      "is_user": true,
+      "timestamp": "15:23"
+    },
+    {
+      "text": "I am the Library AI. This conversation is being saved!",
+      "is_user": false,
+      "timestamp": "15:23"
+    }
+  ]
+}

@@ -114,8 +114,9 @@ def books_page():
     sorted_cats = sorted(categories.keys(), key=lambda k: len(categories[k]), reverse=True)
 
     # 2. Page Setup
-    header()
-    sidebar()
+    # NEW WAY (Connects them together)
+    nav = sidebar()  # 1. Create Sidebar first
+    header(nav)      # 2. Pass it to Header
 
     # 3. State Management
     state = {

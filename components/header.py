@@ -1,47 +1,45 @@
 from nicegui import ui
 
-def header():
+def header(nav_drawer=None):
     """
-    A modern, minimal header.
-    It replaces the old navigation links (now in the Sidebar) with
-    utility icons like Search, Dark Mode, and Notifications.
+    A modern header with a mobile toggle button.
+    
+    Args:
+        nav_drawer: The sidebar drawer object. If provided, adds a menu toggle button.
     """
-    # 'elevated=False' removes the heavy shadow for a flatter look
-    # 'border-b border-gray-200' adds a subtle separator line
-    # 'bg-white' keeps it clean to match the sidebar
-    with ui.header().classes('bg-white border-b border-gray-200 items-center px-6 h-16') \
+    # 'elevated=False' removes shadow for a flat look
+    # 'lg:hidden' on the menu button makes it disappear on large screens (desktop)
+    with ui.header().classes('bg-white border-b border-gray-200 items-center px-4 h-16') \
             .props('elevated=False'):
         
-        # --- 1. BRANDING / BREADCRUMBS ---
-        # Since we have the main logo in the Sidebar, we can use this space
-        # to show the current section or just a clean title.
+        # --- 1. MOBILE MENU BUTTON ---
+        # Only shows if a drawer was passed AND we are on a smaller screen
+        if nav_drawer:
+            ui.button(icon='menu', on_click=nav_drawer.toggle) \
+                .classes('lg:hidden text-gray-600 mr-2') \
+                .props('flat round dense icon-size=md')
+
+        # --- 2. BRANDING ---
         with ui.row().classes('items-center gap-2'):
+            # On mobile, we might want to hide the text if it gets too crowded, 
+            # but usually, it's fine to keep it.
             ui.icon('local_library').classes('text-indigo-600 text-2xl')
             ui.label('Libre Library').classes('text-lg font-bold text-gray-800 tracking-tight')
 
         ui.space()
 
-        # --- 2. GLOBAL UTILITIES (Right Side) ---
-        with ui.row().classes('items-center gap-2'):
+        # --- 3. GLOBAL UTILITIES (Right Side) ---
+        with ui.row().classes('items-center gap-1 md:gap-2'):
             
-            # A. Global Search (Visual only for now)
-            # This is different from the "Book Search". This would be for finding
-            # settings, users, or help articles in a real app.
-            with ui.row().classes('hidden md:flex bg-gray-100 rounded-full px-4 py-1 items-center mr-4'):
-                ui.icon('search', color='grey-5').classes('text-sm')
-                ui.input(placeholder='Search...').props('borderless dense input-class="text-sm"').classes('w-32')
-
-            # B. Dark Mode Toggle
-            # NiceGUI handles the logic for you!
+            # Dark Mode (Visible on all screens)
             dark = ui.dark_mode()
             ui.button(icon='dark_mode', on_click=dark.toggle) \
                 .props('flat round text-color=grey-7 dense') \
                 .tooltip('Toggle Dark Theme')
 
-            # C. Notifications
+            # Notifications (Hidden on very small phones if needed, or keep it)
             with ui.button(icon='notifications_none').props('flat round text-color=grey-7 dense'):
-                # A red badge to show "3 new alerts"
                 ui.badge('3', color='red-500').props('floating rounded size=xs')
 
-            # D. Profile / Settings (Quick Access)
+            # Profile / Settings (The "Quick Access" you mentioned)
             ui.button(icon='more_vert').props('flat round text-color=grey-7 dense')

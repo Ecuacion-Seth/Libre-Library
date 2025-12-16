@@ -1,0 +1,12 @@
+{
+  "username": "oten123",
+  "password": "cd4d5e906b5c5533e05903e4b2e41daae567df2241505791ce66595c7e47ae9b",
+  "first_name": "oten",
+  "last_name": "123",
+  "role": "Student",
+  "details": {
+    "department": "CITE",
+    "year": "3rd Year"
+  },
+  "created_at": "1765772411.110766"
+}

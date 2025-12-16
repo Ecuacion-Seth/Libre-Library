@@ -11,7 +11,6 @@ ASSETS_DIR = BASE_DIR / 'data' / 'assets'
 USERS_DIR.mkdir(parents=True, exist_ok=True)
 
 # --- AUTH LOGIC (Unchanged) ---
-
 def get_user_file(username: str) -> Path:
     safe_name = "".join([c for c in username if c.isalpha() or c.isdigit()])
     return USERS_DIR / f"{safe_name}.json"
@@ -51,64 +50,68 @@ def create_user(username, password, first_name, last_name, role, extra_data):
         json.dump(user_data, f, indent=2)
     return True
 
-# --- NEW UI PAGE ---
+# --- RESPONSIVE UI PAGE ---
 @ui.page('/login')
 def login_page():
-    # --- FIX: AGGRESSIVE CSS RESET ---
-    # 1. body: Removes browser default margin (the white border)
-    # 2. .nicegui-content: Removes NiceGUI's default container padding
     ui.add_head_html('''
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             body { margin: 0 !important; padding: 0 !important; overflow: hidden; }
             .nicegui-content { padding: 0 !important; margin: 0 !important; width: 100%; height: 100vh; }
         </style>
     ''')
 
-    # Main Container
-    with ui.row().classes('w-full h-screen gap-0 overflow-hidden'):
-        # ... (rest of your code stays exactly the same) ...
+    # Main Layout Container
+    with ui.element('div').classes('w-full h-screen flex flex-col md:flex-row gap-0 overflow-hidden'):
         
-        # --- LEFT PANEL: BRANDING (Visible on medium screens and up) ---
-        with ui.column().classes('flex w-1/2 h-full bg-gradient-to-br from-indigo-600 to-violet-700 items-center justify-center p-12 text-white'):
-            print(f"Image exists: {(ASSETS_DIR / 'login-page.png').exists()}")
-            # CORRECT (This is the URL route you created in test-library.py)
-            ui.image('/assets/login-page.png').classes('w-64 drop-shadow-2xl mb-6')
-    
-            # Animated/Floating Icon effect
-            with ui.column().classes('items-center gap-6 animate-pulse'):
-                ui.icon('auto_stories', size='6em').classes('opacity-90 drop-shadow-lg')
+        # --- BRANDING PANEL (Header on Mobile / Sidebar on Desktop) ---
+        # Mobile: w-full, h-auto, flex-row (Logo left, Text right), p-4
+        # Desktop: md:w-1/2, md:h-full, md:flex-col (Logo top, Text bottom), md:p-12
+        with ui.column().classes(
+            'w-full h-auto md:w-1/2 md:h-full '
+            'bg-gradient-to-br from-indigo-600 to-violet-700 '
+            'text-white shrink-0 '
+            'flex-row md:flex-col '         # Row on Mobile, Col on Desktop
+            'items-center '
+            'justify-start md:justify-center ' # Left align Mobile, Center Desktop
+            'gap-4 md:gap-6 '
+            'p-4 md:p-12 shadow-md md:shadow-none z-10'
+        ):
             
-            ui.label('Libre Library').classes('text-5xl font-black tracking-tight mt-6 mb-2 drop-shadow-md')
-            ui.label('Empowering Students & Teachers').classes('text-xl font-light opacity-90')
-            
-            # Divider
-            ui.element('div').classes('w-24 h-1 bg-white/30 rounded-full my-6')
-            
-            ui.label('Access knowledge, share resources, and study smarter.').classes('text-lg opacity-80 text-center max-w-md leading-relaxed')
+            # LOGO IMAGE
+            # Mobile: Small (w-10), Desktop: Large (w-64)
+            ui.image('/assets/login-page.png').classes('w-10 md:w-64 drop-shadow-md')
 
-        # --- RIGHT PANEL: LOGIN FORM ---
-        # 'overflow-y-auto' allows scrolling if the registration form gets tall
-        # NEW LINE (No scrollbar)
-        with ui.column().classes('w-full md:w-1/2 h-full bg-white items-center justify-center p-8 overflow-hidden'):
+            # TEXT CONTAINER
+            # Mobile: No extra spacing, Desktop: Pulse animation
+            with ui.column().classes('items-start md:items-center gap-0 md:gap-6'):
+                
+                # Title
+                # Mobile: Text-lg (Header size), Desktop: Text-5xl (Hero size)
+                ui.label('Libre Library').classes('text-xl md:text-5xl font-black tracking-tight drop-shadow-md')
+                
+                # Subtitles (HIDDEN ON MOBILE, Visible on Desktop)
+                ui.label('Empowering Students & Teachers').classes('hidden md:block text-xl font-light opacity-90 text-center')
+                ui.element('div').classes('hidden md:block w-24 h-1 bg-white/30 rounded-full')
+                ui.label('Access knowledge, share resources, and study smarter.').classes('hidden md:block text-lg opacity-80 text-center max-w-md leading-relaxed')
+
+        # --- FORM PANEL ---
+        # Mobile: flex-1 (Takes remaining height)
+        # Desktop: md:w-1/2 md:h-full
+        with ui.column().classes('w-full flex-1 md:w-1/2 md:h-full bg-white items-center justify-center p-4 md:p-8 overflow-y-auto'):
             
-            # Form Container (Max width for cleanliness)
             with ui.column().classes('w-full max-w-md gap-4'):
                 
-                # Mobile Logo (Only shows on small screens)
-                with ui.row().classes('md:hidden w-full justify-center mb-4'):
-                    with ui.element('div').classes('bg-indigo-600 p-3 rounded-xl shadow-lg'):
-                        ui.icon('auto_stories', color='white', size='32px')
+                # Note: We removed the extra mobile logo here since we now have a header!
 
-                # Dynamic Headers
+                # Headers
                 title_label = ui.label('Welcome Back').classes('text-3xl font-bold text-gray-900 tracking-tight')
                 subtitle_label = ui.label('Please enter your details to sign in.').classes('text-gray-500 mb-6')
 
                 is_registering = False
                 
                 # --- INPUT FIELDS ---
-                
-                # 1. Login Inputs (Always Visible)
-                # Added 'prepend-inner-icon' for a polished look
                 username_input = ui.input('Username') \
                     .props('outlined rounded prepend-inner-icon=account_circle') \
                     .classes('w-full text-lg')
@@ -117,27 +120,22 @@ def login_page():
                     .props('outlined rounded prepend-inner-icon=lock') \
                     .classes('w-full text-lg')
 
-                # 2. Registration Container (Hidden by default)
+                # Registration Fields
                 with ui.column().classes('w-full gap-3 hidden transition-all duration-300') as reg_container:
                     
                     ui.separator().classes('my-2')
                     ui.label('Personal Details').classes('text-xs font-bold text-gray-400 uppercase tracking-wider')
 
-                    # Names Row
                     with ui.row().classes('w-full gap-3'):
                         first_name_input = ui.input('First Name').props('outlined dense').classes('flex-1')
                         last_name_input = ui.input('Last Name').props('outlined dense').classes('flex-1')
 
-                    # Role Selection
                     ui.label('I am a:').classes('text-xs font-bold text-gray-400 mt-2')
-                    # Toggle looks better than dropdown for main selection
                     role_select = ui.toggle(['Student', 'Teacher', 'Contributor'], value='Student') \
                         .props('spread no-caps toggle-color=indigo-600 color=grey-3 text-color=grey-8') \
                         .classes('w-full border border-gray-200 rounded shadow-sm')
 
-                    # --- DYNAMIC FIELDS ---
-                    
-                    # A. Student
+                    # Dynamic Fields
                     student_fields = ui.column().classes('w-full gap-3 bg-gray-50 p-4 rounded-lg border border-gray-200')
                     with student_fields:
                         ui.label('Academic Info').classes('text-xs font-bold text-indigo-500')
@@ -146,7 +144,6 @@ def login_page():
                         year_select = ui.select(['1st Year', '2nd Year', '3rd Year', '4th Year', '5th Year'], label='Year Level') \
                             .props('outlined dense bg-white').classes('w-full')
 
-                    # B. Teacher
                     teacher_fields = ui.column().classes('w-full gap-3 bg-gray-50 p-4 rounded-lg border border-gray-200 hidden')
                     with teacher_fields:
                         ui.label('Faculty Profile').classes('text-xs font-bold text-indigo-500')
@@ -157,10 +154,8 @@ def login_page():
                         ).props('outlined dense bg-white').classes('w-full')
 
                 # --- LOGIC ---
-
                 def update_role_visibility():
                     role = role_select.value
-                    # Simple visibility toggle
                     student_fields.set_visibility(role == 'Student')
                     teacher_fields.set_visibility(role == 'Teacher')
 
@@ -170,18 +165,14 @@ def login_page():
                     nonlocal is_registering
                     is_registering = not is_registering
                     
-                    # Update Texts
                     title_label.text = 'Create Account' if is_registering else 'Welcome Back'
                     subtitle_label.text = 'Join the community today.' if is_registering else 'Please enter your details to sign in.'
                     action_btn.text = 'Sign Up' if is_registering else 'Sign In'
                     toggle_text.text = 'Already have an account?' if is_registering else "Don't have an account?"
                     toggle_link.text = 'Log In' if is_registering else 'Sign Up'
                     
-                    # Show/Hide Registration fields
-                    if is_registering:
-                        reg_container.classes(remove='hidden')
-                    else:
-                        reg_container.classes(add='hidden')
+                    if is_registering: reg_container.classes(remove='hidden')
+                    else: reg_container.classes(add='hidden')
 
                 def handle_submit():
                     username = username_input.value.strip()
@@ -227,17 +218,13 @@ def login_page():
                             ui.notify('Incorrect username or password', color='negative', icon='lock')
 
                 # --- BUTTONS ---
-                
-                # Main Action Button (Big & Bold)
                 action_btn = ui.button('Sign In', on_click=handle_submit) \
                     .classes('w-full py-3 text-lg font-bold shadow-xl shadow-indigo-100 mt-2 hover:scale-[1.02] transition-transform') \
                     .props('unelevated rounded color=indigo-600')
 
-                # Toggle Link at the bottom
                 with ui.row().classes('w-full justify-center gap-2 mt-4'):
                     toggle_text = ui.label("Don't have an account?").classes('text-gray-500')
                     toggle_link = ui.label('Sign Up').classes('text-indigo-600 font-bold cursor-pointer hover:underline') \
                         .on('click', toggle_mode)
 
-                # Submit on Enter key
                 password_input.on('keydown.enter', handle_submit)

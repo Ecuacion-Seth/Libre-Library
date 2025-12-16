@@ -17,8 +17,9 @@ TASKS_DIR.mkdir(parents=True, exist_ok=True)
 
 @ui.page('/planner')
 def planner_page():
-    header()
-    sidebar()
+    # NEW WAY (Connects them together)
+    nav = sidebar()  # 1. Create Sidebar first
+    header(nav)      # 2. Pass it to Header
     
     # --- 1. STATE ---
     tasks = []

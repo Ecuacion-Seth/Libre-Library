@@ -1,0 +1,37 @@
+{
+  "id": "9136e84e-0b38-4c92-81ca-c811eb73dfc2",
+  "title": "hello",
+  "timestamp": "2025-12-16 13:10:20",
+  "messages": [
+    {
+      "text": "hello",
+      "is_user": true,
+      "timestamp": "13:09"
+    },
+    {
+      "text": "I can help you find resources. Try saying 'Find books about Biology'.",
+      "is_user": false,
+      "timestamp": "13:09"
+    },
+    {
+      "text": "find books about biology",
+      "is_user": true,
+      "timestamp": "13:10"
+    },
+    {
+      "text": "I couldn't find any books about 'biology' in the library.",
+      "is_user": false,
+      "timestamp": "13:10"
+    },
+    {
+      "text": "find books about the yellow king",
+      "is_user": true,
+      "timestamp": "13:10"
+    },
+    {
+      "text": "I couldn't find any books about 'the yellow king' in the library.",
+      "is_user": false,
+      "timestamp": "13:10"
+    }
+  ]
+}
